@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "name": "Sprachen",
+      "items": ["C++", "PHP", "JavaScript", "HTML5", "CSS3"]
+    },
+    {
+      "name": "Frameworks & Libraries",
+      "items": ["Vue.js", "Laravel", "Bootstrap", "jQuery"]
+    },
+    {
+      "name": "Datenbanken",
+      "items": ["SQLite"]
+    },
+    {
+      "name": "Tools & IDEs",
+      "items": ["VS Code", "Visual Studio", "GitKraken", "Postman", "Homebrew"]
+    },
+    {
+      "name": "Collaboration",
+      "items": ["GitHub", "Bitbucket", "Jira", "Atlassian", "POEditor"]
+    },
+    {
+      "name": "Plattformen",
+      "items": ["iOS", "macOS"]
+    }
+  ]
+}
