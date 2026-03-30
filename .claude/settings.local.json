@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/Marcel_M/Documents/Projects/argonoize.github.io/assets/img/avatars/2 - PicturePeople-2.jpg\")"
+    ]
+  }
+}

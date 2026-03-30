@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://matschke.dev">
     <title>Marcel Matschke – Software Entwickler</title>
     <meta name="description" content="Marcel Matschke – Software Entwickler aus Kassel. Spezialisiert auf PHP, Laravel, Vue.js und JavaScript.">
 
@@ -28,6 +29,10 @@
         "jobTitle": "Software Entwickler",
         "email": "marcel@matschke.dev",
         "url": "https://matschke.dev",
+        "image": "https://matschke.dev/assets/img/avatars/2%20-%20PicturePeople-2.jpg",
+        "sameAs": [
+            "https://github.com/argonoize"
+        ],
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Riedeselstraße 10",
@@ -51,8 +56,10 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#about">Zum Inhalt springen</a>
 
     <!-- ── Navbar ──────────────────────────────────────────────── -->
+    <header>
     <nav class="navbar">
         <div class="container nav-inner">
             <a class="nav-brand" href="#">Marcel Matschke</a>
@@ -69,6 +76,7 @@
             </ul>
         </div>
     </nav>
+    </header>
 
     <main>
         <!-- ── Hero ────────────────────────────────────────────── -->
@@ -77,7 +85,9 @@
                 <div class="avatar-wrap fu fu-1">
                     <div class="avatar-ring">
                         <div class="avatar-bg"
-                            style="background-image: url('assets/img/avatars/2%20-%20PicturePeople-2.jpg');"></div>
+                         style="background-image: url('assets/img/avatars/2%20-%20PicturePeople-2.jpg');"
+                         role="img"
+                         aria-label="Marcel Matschke"></div>
                     </div>
                 </div>
                 <p class="hero-eyebrow fu fu-2">Hey, ich bin</p>
@@ -106,7 +116,7 @@
                 <p class="section-eyebrow">Was ich nutze</p>
                 <h2 class="section-title">Techstack</h2>
                 <div class="section-bar"></div>
-                <div id="tech-container">
+                <div id="tech-container" aria-live="polite" aria-atomic="true">
                     <p class="tech-loading">Lädt…</p>
                 </div>
             </div>
@@ -301,19 +311,51 @@
         sections.forEach(s => sectionObserver.observe(s));
 
         /* ── Modals ─────────────────────────────────────────────── */
+        let _lastFocus = null;
+
+        function trapFocus(overlay) {
+            const focusable = Array.from(overlay.querySelectorAll(
+                'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            ));
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last  = focusable[focusable.length - 1];
+            overlay._trapHandler = e => {
+                if (e.key !== 'Tab') return;
+                if (e.shiftKey) {
+                    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+                } else {
+                    if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+                }
+            };
+            overlay.addEventListener('keydown', overlay._trapHandler);
+        }
+
+        function releaseFocus(overlay) {
+            if (overlay._trapHandler) {
+                overlay.removeEventListener('keydown', overlay._trapHandler);
+                overlay._trapHandler = null;
+            }
+        }
+
         function openModal(id) {
             const overlay = document.getElementById(id);
             if (!overlay) return;
+            _lastFocus = document.activeElement;
             overlay.classList.add('is-open');
             document.body.classList.add('modal-open');
-            overlay.querySelector('.modal-close, [data-modal-close]')?.focus();
+            trapFocus(overlay);
+            overlay.querySelector('.modal-close')?.focus();
         }
 
         function closeModal(overlay) {
             overlay.classList.remove('is-open');
+            releaseFocus(overlay);
             if (!document.querySelector('.modal-overlay.is-open')) {
                 document.body.classList.remove('modal-open');
             }
+            _lastFocus?.focus();
+            _lastFocus = null;
         }
 
         document.querySelectorAll('[data-modal]').forEach(trigger => {
@@ -352,9 +394,9 @@
                                 <span class="category-count">${cat.items.length}</span>
                             </div>
                             <div class="category-divider"></div>
-                            <div class="tag-group">
-                                ${cat.items.map(item => `<span class="tech-tag">${item}</span>`).join('')}
-                            </div>
+                            <ul class="tag-group" aria-label="${cat.name}">
+                                ${cat.items.map(item => `<li class="tech-tag">${item}</li>`).join('')}
+                            </ul>
                         </div>
                     `).join('')
                 }</div>`;
