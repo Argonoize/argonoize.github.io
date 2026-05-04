@@ -21,6 +21,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_PORT }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
 
+      - name: Zielverzeichnis prüfen
+        run: |
+          ssh -p "${{ secrets.SSH_PORT }}" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "ls -la ${{ secrets.SSH_TARGET_PATH }} && touch ${{ secrets.SSH_TARGET_PATH }}/.write_test && rm ${{ secrets.SSH_TARGET_PATH }}/.write_test && echo 'Schreibzugriff OK'"
+
       - name: Dateien deployen
         run: |
           rsync -avz --delete \
