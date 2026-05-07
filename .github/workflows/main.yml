@@ -23,7 +23,7 @@ jobs:
 
       - name: Zielordner vorbereiten
         run: |
-          ssh -p "${{ secrets.SSH_PORT }}" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "mkdir -p ~/portfolio"
+          ssh -p "${{ secrets.SSH_PORT }}" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "echo 'HOME:' && echo \$HOME && echo 'PWD:' && pwd && ls -la ~/ && mkdir -p ~/portfolio"
 
       - name: Dateien deployen
         run: |
