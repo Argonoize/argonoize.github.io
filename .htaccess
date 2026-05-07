@@ -1,2 +1,5 @@
 DirectoryIndex index.html
 Options -Indexes
+
+RewriteEngine On
+RewriteRule ^$ /index.html [L,R=301]
