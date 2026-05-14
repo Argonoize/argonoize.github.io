@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "name": "Sprachen",
+      "items": ["C++", "PHP", "Python", "JavaScript", "HTML5", "C#", ".NET"]
+    },
+    {
+      "name": "Frameworks & Libraries",
+      "items": ["Laravel", "Nova", "Filament", "Vue.js", "Bootstrap"]
+    },
+    {
+      "name": "Datenbanken",
+      "items": ["SQLite", "MySQL"]
+    },
+    {
+      "name": "Tools & IDEs",
+      "items": ["PHPStorm", "PyCharm", "Rider", "VS Code", "Visual Studio", "GitKraken", "Postman", "Homebrew"]
+    },
+    {
+      "name": "Collaboration",
+      "items": ["GitHub", "Bitbucket", "Jira", "Confluence", "POEditor"]
+    },
+    {
+      "name": "Plattformen",
+      "items": ["iOS", "macOS", "Windows"]
+    }
+  ]
+}

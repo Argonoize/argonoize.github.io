@@ -1,0 +1,26 @@
+---
+import techstackData from '../data/techstack.json';
+const { categories } = techstackData;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section id="techstack">
+  <div class="container">
+    <p class="section-kicker">Was ich nutze</p>
+    <h2 class="section-heading">Techstack</h2>
+
+    <div class="tech-grid">
+      {categories.map((cat, i) => (
+        <div class="tech-card" data-n={pad(i + 1)}>
+          <p class="tech-card-title">{cat.name}</p>
+          <div class="tech-card-rule"></div>
+          <ul class="tech-tags" aria-label={cat.name}>
+            {cat.items.map(item => (
+              <li class="tech-tag">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

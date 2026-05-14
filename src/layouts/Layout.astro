@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Marcel Matschke – Software Entwickler',
+  description = 'Marcel Matschke – Software Entwickler aus Kassel. Spezialisiert auf PHP, Laravel, Vue.js und JavaScript.',
+} = Astro.props;
+
+const avatarUrl = 'https://matschke.dev/assets/img/avatars/2%20-%20PicturePeople-2.jpg';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://matschke.dev" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://matschke.dev" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={avatarUrl} />
+    <meta property="og:locale"      content="de_DE" />
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={avatarUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Marcel Matschke",
+      jobTitle: "Software Entwickler",
+      email: "marcel@matschke.dev",
+      url: "https://matschke.dev",
+      image: avatarUrl,
+      sameAs: ["https://github.com/argonoize"],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Riedeselstraße 10",
+        addressLocality: "Kassel",
+        postalCode: "34119",
+        addressCountry: "DE",
+      },
+      knowsAbout: ["PHP", "Laravel", "Vue.js", "JavaScript", "C++", "HTML5", "C#"],
+    })} />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favivons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favivons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favivons/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favivons/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favivons/android-chrome-512x512.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

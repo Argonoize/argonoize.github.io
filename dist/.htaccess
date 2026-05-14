@@ -1,0 +1,5 @@
+DirectoryIndex index.html
+Options -Indexes +FollowSymLinks
+
+RewriteEngine On
+RewriteRule ^$ index.html [L]

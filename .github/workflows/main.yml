@@ -12,7 +12,24 @@ jobs:
 
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      - name: Astro bauen
+        run: npm run build
+
+      - name: Bilder in dist kopieren
+        run: |
+          mkdir -p dist/assets
+          cp -r assets/img dist/assets/img
 
       - name: SSH vorbereiten
         run: |
@@ -25,12 +42,9 @@ jobs:
         run: |
           ssh -p "${{ secrets.SSH_PORT }}" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "mkdir -p ~/portfolio"
 
-      - name: Dateien deployen
+      - name: Dateien nach IONOS deployen
         run: |
           rsync -avz --delete \
             --chmod=D755,F644 \
-            --exclude=".git" \
-            --exclude=".github" \
-            --exclude="CLAUDE.md" \
             -e "ssh -p ${{ secrets.SSH_PORT }}" \
-            ./ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/portfolio/"
+            ./dist/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/portfolio/"
